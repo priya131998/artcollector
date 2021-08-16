@@ -1,5 +1,5 @@
 from django.shortcuts import render
-
+from .models import Art
 # Create your views here.
 
 # Add the following import
@@ -14,18 +14,10 @@ def about(request):
 
 arts = []
 def arts_index(request):
+  arts = Art.objects.all()
   return render(request, 'arts/index.html', { 'arts': arts })
 
+def arts_detail(request, art_id):
+  art = Art.objects.get(id=art_id)
+  return render(request, 'arts/detail.html', { 'art': art })
 
-class Art:  # Note that parens are optional if not inheriting from another class
-  def __init__(self, name, title, description, year):
-    self.name = name
-    self.title = title
-    self.description = description
-    self.year = year
-
-arts = [
-  Art('Linda Smith', 'Crying Women', 'Water Paint', 1906),
-  Art('Sachi Shah', 'Mona Lisa', 'What expression is she actually making', 1894),
-  Art('Raven Garcia', 'Scenary', 'Seasons', 1994)
-]
