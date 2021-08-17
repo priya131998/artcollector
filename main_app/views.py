@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 # Add UdpateView & DeleteView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Art
@@ -24,6 +24,18 @@ def arts_detail(request, art_id):
   art = Art.objects.get(id=art_id)
   exhibition_form = ExhibitionForm()
   return render(request, 'arts/detail.html', { 'art': art, 'exhibition_form': exhibition_form })
+
+def add_exhibition(request, art_id):
+  # create a ModelForm instance using the data in request.POST
+  form = ExhibitionForm(request.POST)
+  # validate the form
+  if form.is_valid():
+    # don't save the form to the db until it
+    # has the cat_id assigned
+    new_exhibition = form.save(commit=False)
+    new_exhibition.art_id = art_id
+    new_exhibition.save()
+  return redirect('detail', art_id=art_id)
 
 class ArtCreate(CreateView):
   model = Art
