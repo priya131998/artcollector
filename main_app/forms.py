@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Feeding
+from .models import Exhibition
 
 class ExhibitionForm(ModelForm):
   class Meta:
