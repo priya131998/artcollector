@@ -53,5 +53,8 @@
     setDefaultDate: true,
     autoClose: true
   });
+  // add additional JS to initialize select below
+  const selectEl = document.getElementById('id_show');
+  M.FormSelect.init(selectEl);
 </script>
 {% endblock %}
