@@ -25,3 +25,4 @@ def arts_detail(request, art_id):
 class ArtCreate(CreateView):
   model = Art
   fields = '__all__'
+  success_url = '/arts/'
