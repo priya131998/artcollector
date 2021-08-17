@@ -6,3 +6,4 @@ from .models import Art, Exhibition
 
 # Register your models here
 admin.site.register(Art)
+admin.site.register(Exhibition)

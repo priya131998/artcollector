@@ -25,7 +25,7 @@ class Art(models.Model):
 
 
 class Exhibition(models.Model):
-  date = models.DateField()
+  date = models.DateField('exhibition date')
   show = models.CharField(
     max_length=1,
 	 choices=SHOWS,
