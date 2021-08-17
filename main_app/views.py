@@ -2,6 +2,7 @@ from django.shortcuts import render
 # Add UdpateView & DeleteView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Art
+from .forms import ExhibitionForm
 # Create your views here.
 
 # Add the following import
@@ -21,7 +22,8 @@ def arts_index(request):
 
 def arts_detail(request, art_id):
   art = Art.objects.get(id=art_id)
-  return render(request, 'arts/detail.html', { 'art': art })
+  exhibition_form = ExhibitionForm()
+  return render(request, 'arts/detail.html', { 'art': art, 'exhibition_form': exhibition_form })
 
 class ArtCreate(CreateView):
   model = Art
