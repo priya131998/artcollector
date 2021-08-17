@@ -24,7 +24,7 @@
   </div>
   <div class="col s6">
     <!-- new code below -->
-    <form method="post">
+    <form action="{% url 'add_exhibition' art.id %}" method="post">
       {% csrf_token %}
       {{ exhibition_form.as_p }}
       <input type="submit" class="btn" value="Add Exhibition">
