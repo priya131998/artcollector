@@ -3,21 +3,39 @@
 
 <h1>Art Details</h1>
 
-<div class="card">
-  <div class="card-content">
-    <span class="card-title">{{ art.name }}</span>
-    <p>Title: {{ art.title }}</p>
-    <p>Description: {{ art.description }}</p>
-    {% if art.year > 0 %}
-      <p>Year: {{ art.year }}</p>
-    {% else %}
-      <p>Year: Art</p>
-    {% endif %}
+<div class="row">
+  <div class="col s6">
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">{{ art.name }}</span>
+        <p>Title: {{ art.title }}</p>
+        <p>Description: {{ art.description }}</p>
+        {% if art.age > 0 %}
+          <p>Year: {{ art.year }}</p>
+        {% else %}
+          <p>Year: Art</p>
+        {% endif %}
+      </div>
+      <div class="card-action">
+        <a href="{% url 'arts_update' art.id %}">Edit</a>
+        <a href="{% url 'arts_delete' art.id %}">Delete</a>
+      </div>
+    </div>
   </div>
-  <div class="card-action">
-    <a href="{% url 'arts_update' art.id %}">Edit</a>
-    <a href="{% url 'arts_delete' art.id %}">Delete</a>
+  <div class="col s6">
+    <table class="striped">
+      <thead>
+        <tr><th>Date</th><th>Show</th></tr>
+      </thead>
+      <tbody>
+        {% for exhibition in art.exhibition_set.all %}
+          <tr>
+            <td>{{exhibition.date}}</td>
+            <td>{{exhibition.get_show_display}}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
   </div>
 </div>
-
 {% endblock %}
