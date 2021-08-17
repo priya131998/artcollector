@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from django.views.generic.edit import CreateView
+# Add UdpateView & DeleteView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Art
 # Create your views here.
 
@@ -25,4 +26,13 @@ def arts_detail(request, art_id):
 class ArtCreate(CreateView):
   model = Art
   fields = '__all__'
+  success_url = '/arts/'
+
+class ArtUpdate(UpdateView):
+  model = Art
+  # Let's disallow the renaming of a cat by excluding the name field!
+  fields = ['title', 'description', 'year']
+
+class ArtDelete(DeleteView):
+  model = Art
   success_url = '/arts/'
