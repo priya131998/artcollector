@@ -14,7 +14,7 @@ from .forms import ExhibitionForm
 
 class ArtCreate(CreateView):
   model = Art
-  # fields = ['name', 'title', 'description', 'year']
+  fields = ['name', 'title', 'description', 'year']
 
   success_url = '/arts/'
 
@@ -43,7 +43,6 @@ def about(request):
     return render(request, 'about.html')
 
 @login_required
-# arts = []
 def arts_index(request):
   arts = Art.objects.filter(user=request.user)
   return render(request, 'arts/index.html', { 'arts': arts })
