@@ -15,10 +15,12 @@
     <nav>
       <div class="nav-wrapper">
         <ul>
-          <li><a href="/" class="left brand-logo">&nbsp;&nbsp;ArtCollector</a></li>
+          <li><a href="{% url 'home' %}" class="left brand-logo">&nbsp;&nbsp;Art Collector</a></li>
         </ul>
         <ul class="right">
           <li><a href="{% url 'about' %}">About</a></li>
+          <li><a href="{% url 'buyers_create' %}">Add a Buyer</a></li>
+          <li><a href="{% url 'buyers_index' %}">View All Buyers</a></li>
           <li><a href="{% url 'arts_create' %}">Add a Art</a></li>
           <li><a href="{% url 'index' %}">View All My Arts</a></li>
         </ul>
