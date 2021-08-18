@@ -15,9 +15,6 @@ urlpatterns = [
     path('buyers/create/', views.BuyerCreate.as_view(), name='buyers_create'),
     path('buyers/<int:pk>/update/', views.BuyerUpdate.as_view(), name='buyers_update'),
     path('buyers/<int:pk>/delete/', views.BuyerDelete.as_view(), name='buyers_delete'),
-    path('admin/', admin.site.urls),
-    path('', include('main_app.urls')),
     # associate a buyer with an art
-    path('arts/<int:art_id>/assoc_buyer/<int:buyer_id>/', views.assoc_buyer, name='assoc_buyer')
-    path('accounts/', include('django.contrib.auth.urls')),
+    path('arts/<int:art_id>/assoc_buyer/<int:buyer_id>/', views.assoc_buyer, name='assoc_buyer'),
 ]
