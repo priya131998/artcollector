@@ -42,7 +42,7 @@ def about(request):
 
 arts = []
 def arts_index(request):
-  arts = Art.objects.all()
+  arts = Art.objects.filter(user=request.user)
   return render(request, 'arts/index.html', { 'arts': arts })
 
 def arts_detail(request, art_id):
