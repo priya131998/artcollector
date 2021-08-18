@@ -4,6 +4,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
 from .models import Art, Buyer
 from .forms import ExhibitionForm
 # Create your views here.
@@ -13,8 +14,9 @@ from .forms import ExhibitionForm
 
 class ArtCreate(CreateView):
   model = Art
-  fields = '__all__'
-  # success_url = '/arts/'
+  # fields = ['name', 'title', 'description', 'year']
+
+  success_url = '/arts/'
 
   # This inherited method is called when a
   # valid cat form is being submitted
@@ -40,11 +42,13 @@ def home(request):
 def about(request):
     return render(request, 'about.html')
 
-arts = []
+@login_required
+# arts = []
 def arts_index(request):
   arts = Art.objects.filter(user=request.user)
   return render(request, 'arts/index.html', { 'arts': arts })
 
+@login_required
 def arts_detail(request, art_id):
   art = Art.objects.get(id=art_id)
   # Get the buyer the art doesn't have
@@ -52,6 +56,7 @@ def arts_detail(request, art_id):
   exhibition_form = ExhibitionForm()
   return render(request, 'arts/detail.html', { 'art': art, 'exhibition_form': exhibition_form, 'buyers': buyers_art_doesnt_have })
 
+@login_required
 def add_exhibition(request, art_id):
   # create a ModelForm instance using the data in request.POST
   form = ExhibitionForm(request.POST)
@@ -82,6 +87,7 @@ class BuyerDelete(DeleteView):
   model = Buyer
   success_url = '/buyers/'
 
+@login_required
 def assoc_buyer(request, art_id, buyer_id):
   # Note that you can pass a buyer's id instead of the whole object
   Art.objects.get(id=art_id).buyers.add(buyer_id)
