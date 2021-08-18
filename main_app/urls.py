@@ -17,4 +17,6 @@ urlpatterns = [
     path('buyers/<int:pk>/delete/', views.BuyerDelete.as_view(), name='buyers_delete'),
     # associate a buyer with an art
     path('arts/<int:art_id>/assoc_buyer/<int:buyer_id>/', views.assoc_buyer, name='assoc_buyer'),
+    path('accounts/signup/', views.signup, name='signup'),
+
 ]
