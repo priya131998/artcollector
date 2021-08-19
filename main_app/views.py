@@ -5,6 +5,8 @@ from django.views.generic import ListView, DetailView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
+# Import the mixin for class-based views
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Art, Buyer
 from .forms import ExhibitionForm
 # Create your views here.
@@ -12,7 +14,7 @@ from .forms import ExhibitionForm
 # Add the following import
 
 
-class ArtCreate(CreateView):
+class ArtCreate(LoginRequiredMixin, CreateView):
   model = Art
   fields = ['name', 'title', 'description', 'year']
 
@@ -26,12 +28,12 @@ class ArtCreate(CreateView):
     # Let the CreateView do its job as usual
     return super().form_valid(form)
 
-class ArtUpdate(UpdateView):
+class ArtUpdate(LoginRequiredMixin, UpdateView):
   model = Art
   # Let's disallow the renaming of a art by excluding the name field!
   fields = ['title', 'description', 'year']
 
-class ArtDelete(DeleteView):
+class ArtDelete(LoginRequiredMixin, DeleteView):
   model = Art
   success_url = '/arts/'
 
@@ -68,21 +70,21 @@ def add_exhibition(request, art_id):
     new_exhibition.save()
   return redirect('detail', art_id=art_id)
 
-class BuyerList(ListView):
+class BuyerList(LoginRequiredMixin, ListView):
   model = Buyer
 
-class BuyerDetail(DetailView):
+class BuyerDetail(LoginRequiredMixin, DetailView):
   model = Buyer
 
-class BuyerCreate(CreateView):
+class BuyerCreate(LoginRequiredMixin, CreateView):
   model = Buyer
   fields = '__all__'
 
-class BuyerUpdate(UpdateView):
+class BuyerUpdate(LoginRequiredMixin, UpdateView):
   model = Buyer
   fields = ['name', 'bid']
 
-class BuyerDelete(DeleteView):
+class BuyerDelete(LoginRequiredMixin, DeleteView):
   model = Buyer
   success_url = '/buyers/'
 
